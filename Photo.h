@@ -19,4 +19,5 @@
 @property (nonatomic, strong) NSString *title;
 
 @property (nonatomic, strong) UIImage *thumbnail;
+@property (nonatomic, assign) BOOL viewed;
 @end

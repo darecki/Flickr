@@ -10,8 +10,9 @@
 #import "FlickrApi.h"
 #import "Photo.h"
 #import "PhotoCell.h"
+#import "BigPhotoViewController.h"
 
-@interface PhotoGridViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface PhotoGridViewController () <UICollectionViewDataSource>
 @end
 
 @implementation PhotoGridViewController
@@ -19,8 +20,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
     [self loadPhotos];
+    self.navigationItem.title = self.searchTerm;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.collectionView reloadData];
 }
 
 - (void)loadPhotos
@@ -37,7 +44,7 @@
             photo.title = item[@"title"];
             photo.latitude = item[@"latitude"];
             photo.longitude = item[@"longitude"];
-            
+                        
             [self.photoList addObject:photo];
         }
         [self.wheel stopAnimating];
@@ -64,8 +71,13 @@
     PhotoCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
     
     Photo *photo = self.photoList[indexPath.row];
-    
-    if (!photo.thumbnail) {
+    cell.backgroundColor = [UIColor whiteColor];
+    if (photo.thumbnail) {
+        cell.photo = photo;
+        if (photo.viewed == YES) {
+            cell.backgroundColor = [UIColor yellowColor];
+        }
+    } else {
 
         NSURL *url = [FlickrApi urlForPhoto:photo size:@"s"];
         [FlickrApi downloadImageWithURL:url completionBlock:^(BOOL succeeded, UIImage *image) {
@@ -75,14 +87,14 @@
             }
         }];
     }
-    cell.photo = photo;
     return cell;
 }
 
-#pragma mark - UICollectionViewDelegate
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(PhotoCell *)sender
 {
-    NSLog(@"selected item at index path %@", indexPath);
+    if ([segue.identifier isEqualToString:@"show big photo"]) {
+        BigPhotoViewController *dvc = segue.destinationViewController;
+        dvc.photo = sender.photo;
+    }
 }
-
 @end
