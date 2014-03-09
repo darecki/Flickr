@@ -14,7 +14,7 @@
 static NSString * const apiBasePath = @"http://api.flickr.com/services/rest/";
 static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
 
-+ (void)photosForString:(NSString *)string
++ (void)photosForString:(NSString *)string completionBlock:(FlickrSearchCompletionBlock)completionBlock
 {
     NSDictionary *parameters = @{@"method":@"flickr.photos.search",
                                  @"api_key":apiKey,
@@ -23,9 +23,9 @@ static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
                                  @"tags":string};
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiBasePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"JSON: %@", responseObject);
+        completionBlock(string, responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        completionBlock(string, nil, error);
     }];
 }
 

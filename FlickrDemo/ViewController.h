@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+@property (weak, nonatomic) IBOutlet UITextField *searchTerm;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *wheel;
+- (IBAction)startSearching:(id)sender;
+
 
 @end

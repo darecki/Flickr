@@ -18,15 +18,26 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    
-
-    [FlickrApi photosForString:@"wroclaw"];
 }
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (IBAction)startSearching:(id)sender
+{
+    NSString *text = self.searchTerm.text;
+    if (text.length) {
+        [FlickrApi photosForString:text completionBlock:^(NSString *searchTerm, id results, NSError *error) {
+            NSLog(@"Search:%@", searchTerm);
+            NSLog(@"Results:%@", results);
+            NSLog(@"Error: %@", error);
+            [self.wheel stopAnimating];
+        }];
+        [self.wheel startAnimating];
+    }
 }
 
 @end
