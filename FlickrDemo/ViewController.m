@@ -7,37 +7,25 @@
 //
 
 #import "ViewController.h"
-#import "FlickrApi.h"
+#import "PhotoGridViewController.h"
+
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
 
-- (void)viewDidLoad
-{
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 - (IBAction)startSearching:(id)sender
 {
-    NSString *text = self.searchTerm.text;
-    if (text.length) {
-        [FlickrApi photosForString:text completionBlock:^(NSString *searchTerm, id results, NSError *error) {
-            NSLog(@"Search:%@", searchTerm);
-            NSLog(@"Results:%@", results);
-            NSLog(@"Error: %@", error);
-            [self.wheel stopAnimating];
-        }];
-        [self.wheel startAnimating];
+    if (self.searchTerm.text.length) {
+        [self performSegueWithIdentifier:@"show photo grid" sender:self];
     }
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    [self.searchTerm resignFirstResponder];
+    PhotoGridViewController *dvc = segue.destinationViewController;
+    dvc.searchTerm = self.searchTerm.text;
+}
 @end

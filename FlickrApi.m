@@ -20,9 +20,14 @@ static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
                                  @"api_key":apiKey,
                                  @"format":@"json",
                                  @"nojsoncallback":@1,
-                                 @"tags":string};
+                                 @"text":string,
+                                 @"media":@"photos",
+                                 @"extras":@"geo",
+                                 @"per_page":@40
+                                 };
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiBasePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
         completionBlock(string, responseObject, nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(string, nil, error);
