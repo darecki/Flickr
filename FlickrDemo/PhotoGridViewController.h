@@ -13,5 +13,6 @@
 @property (nonatomic, strong) NSString *searchTerm;
 @property (nonatomic, strong) NSMutableArray *photoList;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *wheel;
+- (IBAction)switchLayout:(id)sender;
 
 @end

@@ -11,8 +11,12 @@
 #import "Photo.h"
 #import "PhotoCell.h"
 #import "BigPhotoViewController.h"
+#import "SmallLayout.h"
+#import "BigLayout.h"
 
-@interface PhotoGridViewController () <UICollectionViewDataSource>
+@interface PhotoGridViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIViewControllerTransitioningDelegate>
+@property (nonatomic, strong) SmallLayout *smallLayout;
+@property (nonatomic, strong) BigLayout *bigLayout;
 @end
 
 @implementation PhotoGridViewController
@@ -22,6 +26,9 @@
     [super viewDidLoad];
     [self loadPhotos];
     self.navigationItem.title = self.searchTerm;
+    self.smallLayout = [[SmallLayout alloc] init];
+    self.bigLayout = [[BigLayout alloc] init];
+    [self.collectionView setCollectionViewLayout:self.bigLayout animated:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -79,7 +86,7 @@
         }
     } else {
 
-        NSURL *url = [FlickrApi urlForPhoto:photo size:@"s"];
+        NSURL *url = [FlickrApi urlForPhoto:photo size:@"m"];
         [FlickrApi downloadImageWithURL:url completionBlock:^(BOOL succeeded, UIImage *image) {
             if (succeeded) {
                 photo.thumbnail = image;
@@ -97,4 +104,20 @@
         dvc.photo = sender.photo;
     }
 }
+
+
+- (IBAction)switchLayout:(id)sender
+{
+    if (self.collectionView.collectionViewLayout == self.smallLayout)
+    {
+        [self.bigLayout invalidateLayout];
+        [self.collectionView setCollectionViewLayout:self.bigLayout animated:YES];
+    }
+    else
+    {
+        [self.smallLayout invalidateLayout];
+        [self.collectionView setCollectionViewLayout:self.smallLayout animated:YES];
+    }
+}
+
 @end
