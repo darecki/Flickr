@@ -23,7 +23,7 @@ static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
                                  @"text":string,
                                  @"media":@"photos",
                                  @"extras":@"geo",
-                                 @"per_page":@10
+//                                 @"per_page":@10
                                  };
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiBasePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -32,6 +32,38 @@ static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         completionBlock(string, nil, error);
     }];
+}
+
++ (void)downloadImageWithURL:(NSURL *)url completionBlock:(FlickDownloadImageCompletionBlock)completionBlock
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+    operation.responseSerializer = [AFImageResponseSerializer serializer];
+    
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        UIImage *image = responseObject;
+        completionBlock(YES,image);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+        completionBlock(NO,nil);
+    }];
+    
+    [operation start];
+    
+//    
+//    
+//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
+//    [NSURLConnection sendAsynchronousRequest:request
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *error) {
+//                               if ( !error )
+//                               {
+//                                   UIImage *image = [[UIImage alloc] initWithData:data];
+//                                   completionBlock(YES,image);
+//                               } else{
+//                                   completionBlock(NO,nil);
+//                               }
+//                           }];
 }
 
 + (NSURL *)urlForPhoto:(Photo *)photo size:(NSString *)size

@@ -38,12 +38,6 @@
             photo.latitude = item[@"latitude"];
             photo.longitude = item[@"longitude"];
             
-            NSURL *url = [FlickrApi urlForPhoto:photo size:@"t"];
-            NSData *data = [NSData dataWithContentsOfURL:url];
-
-            UIImage *image = [UIImage imageWithData:data];
-            photo.thumbnail = image;
-            
             [self.photoList addObject:photo];
         }
         [self.wheel stopAnimating];
@@ -68,8 +62,20 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     PhotoCell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoCell" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor whiteColor];
-    cell.photo = self.photoList[indexPath.row];
+    
+    Photo *photo = self.photoList[indexPath.row];
+    
+    if (!photo.thumbnail) {
+
+        NSURL *url = [FlickrApi urlForPhoto:photo size:@"s"];
+        [FlickrApi downloadImageWithURL:url completionBlock:^(BOOL succeeded, UIImage *image) {
+            if (succeeded) {
+                photo.thumbnail = image;
+                cell.photo = photo;
+            }
+        }];
+    }
+    cell.photo = photo;
     return cell;
 }
 
