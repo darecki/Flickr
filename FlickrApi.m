@@ -23,7 +23,7 @@ static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
                                  @"text":string,
                                  @"media":@"photos",
                                  @"extras":@"geo",
-                                 @"per_page":@40
+                                 @"per_page":@10
                                  };
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     [manager GET:apiBasePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -34,4 +34,11 @@ static NSString * const apiKey = @"050464fdf5c8e3db505ddbbf16370bf9";
     }];
 }
 
++ (NSURL *)urlForPhoto:(Photo *)photo size:(NSString *)size
+{
+    if (!size) {
+        size = @"t";
+    }
+    return [NSURL URLWithString:[NSString stringWithFormat:@"http://farm%@.staticflickr.com/%@/%@_%@_%@.jpg", photo.farm, photo.server, photo.photo_id, photo.secret, size]];
+}
 @end

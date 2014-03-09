@@ -11,7 +11,7 @@
 @interface PhotoGridViewController : UICollectionViewController
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong) NSString *searchTerm;
-@property (nonatomic, strong) NSArray *photoList;
+@property (nonatomic, strong) NSMutableArray *photoList;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *wheel;
 
 @end

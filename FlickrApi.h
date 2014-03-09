@@ -7,11 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "Photo.h"
 typedef void (^FlickrSearchCompletionBlock)(NSString *searchTerm, id results, NSError *error);
 
 @interface FlickrApi : NSObject
 
 + (void)photosForString:(NSString *)string completionBlock:(FlickrSearchCompletionBlock)completionBlock;
-
++ (NSURL *)urlForPhoto:(Photo *)photo size:(NSString *)size;
 @end
