@@ -13,8 +13,9 @@
 #import "BigPhotoViewController.h"
 #import "SmallLayout.h"
 #import "BigLayout.h"
+#import "AnimatedPhotoTransitioning.h"
 
-@interface PhotoGridViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout,UIViewControllerTransitioningDelegate>
+@interface PhotoGridViewController () <UICollectionViewDataSource, UIViewControllerTransitioningDelegate>
 @property (nonatomic, strong) SmallLayout *smallLayout;
 @property (nonatomic, strong) BigLayout *bigLayout;
 @end
@@ -102,6 +103,7 @@
     if ([segue.identifier isEqualToString:@"show big photo"]) {
         BigPhotoViewController *dvc = segue.destinationViewController;
         dvc.photo = sender.photo;
+        dvc.transitioningDelegate = self;
     }
 }
 
@@ -118,6 +120,20 @@
         [self.smallLayout invalidateLayout];
         [self.collectionView setCollectionViewLayout:self.smallLayout animated:YES];
     }
+}
+
+#pragma mark - Transitioning
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
+{
+    AnimatedPhotoTransitioning *transitioning = [[AnimatedPhotoTransitioning alloc] init];
+    return transitioning;
+}
+
+- (id <UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    AnimatedPhotoTransitioning *transitioning = [[AnimatedPhotoTransitioning alloc] init];
+    transitioning.dismissing = YES;
+    return transitioning;
 }
 
 @end

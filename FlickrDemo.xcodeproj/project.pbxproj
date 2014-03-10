@@ -28,6 +28,7 @@
 		E53B8D7118CCF35000B209BF /* BigPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E53B8D7018CCF35000B209BF /* BigPhotoViewController.m */; };
 		E5C1EB8518CD25510021D5B3 /* SmallLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1EB8418CD25510021D5B3 /* SmallLayout.m */; };
 		E5C1EB8818CD25640021D5B3 /* BigLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1EB8718CD25640021D5B3 /* BigLayout.m */; };
+		E5C1EB8B18CD320A0021D5B3 /* AnimatedPhotoTransitioning.m in Sources */ = {isa = PBXBuildFile; fileRef = E5C1EB8A18CD320A0021D5B3 /* AnimatedPhotoTransitioning.m */; };
 		E5FA919818CC5E37007C0065 /* FlickrApi.m in Sources */ = {isa = PBXBuildFile; fileRef = E5FA919718CC5E37007C0065 /* FlickrApi.m */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +76,8 @@
 		E5C1EB8418CD25510021D5B3 /* SmallLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SmallLayout.m; sourceTree = "<group>"; };
 		E5C1EB8618CD25640021D5B3 /* BigLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigLayout.h; sourceTree = "<group>"; };
 		E5C1EB8718CD25640021D5B3 /* BigLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigLayout.m; sourceTree = "<group>"; };
+		E5C1EB8918CD320A0021D5B3 /* AnimatedPhotoTransitioning.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimatedPhotoTransitioning.h; sourceTree = "<group>"; };
+		E5C1EB8A18CD320A0021D5B3 /* AnimatedPhotoTransitioning.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimatedPhotoTransitioning.m; sourceTree = "<group>"; };
 		E5FA919618CC5E37007C0065 /* FlickrApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlickrApi.h; sourceTree = "<group>"; };
 		E5FA919718CC5E37007C0065 /* FlickrApi.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlickrApi.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -153,6 +156,8 @@
 				E522804318CB3D4500D211DB /* Supporting Files */,
 				E53B8D6618CC959200B209BF /* PhotoGridViewController.h */,
 				E53B8D6718CC959300B209BF /* PhotoGridViewController.m */,
+				E5C1EB8918CD320A0021D5B3 /* AnimatedPhotoTransitioning.h */,
+				E5C1EB8A18CD320A0021D5B3 /* AnimatedPhotoTransitioning.m */,
 				E53B8D6C18CCCEE400B209BF /* PhotoCell.h */,
 				E53B8D6D18CCCEE400B209BF /* PhotoCell.m */,
 				E53B8D6F18CCF35000B209BF /* BigPhotoViewController.h */,
@@ -337,6 +342,7 @@
 				E522805318CB3D4500D211DB /* ViewController.m in Sources */,
 				E522804D18CB3D4500D211DB /* AppDelegate.m in Sources */,
 				E53B8D6E18CCCEE400B209BF /* PhotoCell.m in Sources */,
+				E5C1EB8B18CD320A0021D5B3 /* AnimatedPhotoTransitioning.m in Sources */,
 				E5C1EB8518CD25510021D5B3 /* SmallLayout.m in Sources */,
 				E53B8D6818CC959300B209BF /* PhotoGridViewController.m in Sources */,
 				E5C1EB8818CD25640021D5B3 /* BigLayout.m in Sources */,

@@ -14,12 +14,11 @@
 @end
 
 @implementation BigPhotoViewController
-
-- (void)viewDidAppear:(BOOL)animated
+- (void)viewDidLoad
 {
-    [super viewDidAppear:animated];
-    
+    [super viewDidLoad];
     [self checkPhotoViewed];
+    self.imageView.image = self.photo.thumbnail;
     self.photoTitle.text = self.photo.title;
     self.location.text = [NSString stringWithFormat:@"%@, %@", self.photo.latitude, self.photo.longitude];
     if ([self.location.text isEqualToString:@"0, 0"]) {
